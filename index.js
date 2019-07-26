@@ -7,11 +7,12 @@ args = process.argv.slice(2);
 /**
  * Creates the request to be used to upload file.
  * @param {File} file to be uploaded
+ * @param {String} fileName name of the file.
  */
-function createRequest(file) {
+function createRequest(file, fileName) {
   const options = {
     method: 'PUT',
-    uri: 'https://transfer.sh/' + file.name,
+    uri: 'https://transfer.sh/' + fileName,
     headers: {
       'User-Agent': 'curl/7.58.0', // Thanks @MSF-Jarvis
     },
@@ -31,15 +32,17 @@ function createRequest(file) {
 function main() {
   if (args.length == 0) {
     console.log('Error : No file provided');
-  } else {
-    const file = fs.createReadStream(__dirname + '/' + args[0]);
-    if (file == undefined) {
-      console.log('Error reading file');
-      process.exit();
-    } else {
-      createRequest(file);
-    }
+    process.exit(-1);
   }
+  const fileName = args[0];
+  fs.readFile(__dirname + '/' + fileName, (err, data) => {
+    if (err) {
+      console.log(err);
+      process.exit(-10);
+    } else {
+      createRequest(data, fileName);
+    }
+  });
 }
 
 main();
