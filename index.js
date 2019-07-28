@@ -47,7 +47,7 @@ function createFilePath() {
 
 /**
  * Creates the request to be used to upload file.
- * @param {File} file to be uploaded
+ * @param {Buffer} file to be uploaded
  * @param {String} fileName name of the file.
  */
 function createRequest(file) {
