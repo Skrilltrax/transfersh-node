@@ -13,7 +13,7 @@ let finalPath = undefined; // Final path to access the file.
 function createFilePath() {
   const arg = process.argv.slice(2);
 
-  if (arg.length != 1) {
+  if (arg.length !== 1) {
     console.log('Enter filepath correctly');
     console.log('Either filename (if file in current directory) or fullpath');
     console.log('Example: node index.js (file or /path/to/file) ');
@@ -27,12 +27,12 @@ function createFilePath() {
   fileExtension = fullFileName[1];
   filePath = filePathArray.slice(0, (filePathArray.length - 1)).join('/');
 
-  if (filePath == '' && arg[0].indexOf('/') == -1) {
+  if (filePath === '' && arg[0].indexOf('/') === -1) {
     filePath = __dirname;
   }
   filePath = filePath.concat('/');
 
-  if (fileExtension != undefined) {
+  if (fileExtension !== undefined) {
     fileNameWithExtension = fileName + '.' + fileExtension;
     finalPath = filePath + fileName + '.' + fileExtension;
   } else {
